@@ -4,5 +4,7 @@
 */
 
 module.exports = {
-  port: process.env.PORT || 5001
+  port: process.env.PORT || 5001,
+  ecPath: `/home/trout/work/electron-cash/cashfusion/electron-Cash-4.1.0-fusion-1-x86_64.AppImage`,
+  walletFile: `/home/trout/.electron-cash/wallets/test01`
 }
