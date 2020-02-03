@@ -31,6 +31,25 @@ class ElectronCash {
       ctx.throw(500, err.message)
     }
   }
+
+  // Get balances of the wallet.
+  async getUtxos (ctx) {
+    try {
+      let data = _this.shell.exec(`${config.ecPath} -w ${config.walletFile} listunspent`)
+      data = JSON.parse(data)
+      // console.log(`data: ${JSON.stringify(data, null, 2)}`)
+
+      // const addr = data.replace(/(\r\n|\n|\r)/gm, '')
+
+      ctx.body = {
+        success: true,
+        utxos: data
+      }
+    } catch (err) {
+      console.error(`Error in ec/controller.js/getUtxos()`)
+      ctx.throw(500, err.message)
+    }
+  }
 }
 
 module.exports = ElectronCash

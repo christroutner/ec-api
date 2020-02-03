@@ -9,6 +9,11 @@ module.exports.routes = [
     method: 'GET',
     route: '/address',
     handlers: [electronCash.getAddress]
+  },
+  {
+    method: 'GET',
+    route: '/utxos',
+    handlers: [electronCash.getUtxos]
   }
   /*
   {

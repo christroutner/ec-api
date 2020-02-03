@@ -16,16 +16,16 @@ describe('ElectronCash', () => {
     await app.startServer() // This should be second instruction.
 
     // Create a second test user.
-    const userObj = {
-      email: 'test2@test.com',
-      password: 'pass2'
-    }
-    const testUser = await testUtils.createUser(userObj)
+    // const userObj = {
+    //   email: 'test2@test.com',
+    //   password: 'pass2'
+    // }
+    // const testUser = await testUtils.createUser(userObj)
     // console.log(`testUser2: ${JSON.stringify(testUser, null, 2)}`)
 
-    context.user2 = testUser.user
-    context.token2 = testUser.token
-    context.id2 = testUser.user._id
+    // context.user2 = testUser.user
+    // context.token2 = testUser.token
+    // context.id2 = testUser.user._id
 
     // Get the JWT used to log in as the admin 'system' user.
     const adminJWT = await testUtils.getAdminJWT()
@@ -59,6 +59,29 @@ describe('ElectronCash', () => {
       assert.equal(true, response.success)
 
       assert.property(response, 'address')
+    })
+  })
+
+  describe('GET /ec/utxos', () => {
+    it('should get a list of utxos', async () => {
+      // const { token } = context
+
+      const options = {
+        method: 'GET',
+        url: `${LOCALHOST}/ec/utxos`,
+        headers: {
+          Accept: 'application/json'
+        }
+      }
+
+      const result = await axios(options)
+      const response = result.data
+      console.log(`response: ${JSON.stringify(response, null, 2)}`)
+
+      assert.property(response, 'success')
+      assert.equal(response.success, true)
+
+      assert.property(response, 'utxos')
     })
   })
 })
