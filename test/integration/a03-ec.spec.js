@@ -1,6 +1,7 @@
-const testUtils = require('./utils')
+const app = require('../../bin/server')
+const testUtils = require('../utils')
 const assert = require('chai').assert
-const config = require('../config')
+const config = require('../../config')
 const axios = require('axios').default
 
 const util = require('util')
@@ -12,7 +13,7 @@ const context = {}
 
 describe('ElectronCash', () => {
   before(async () => {
-    // console.log(`config: ${JSON.stringify(config, null, 2)}`)
+    await app.startServer() // This should be second instruction.
 
     // Create a second test user.
     const userObj = {
