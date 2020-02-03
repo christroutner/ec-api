@@ -76,7 +76,7 @@ describe('ElectronCash', () => {
 
       const result = await axios(options)
       const response = result.data
-      console.log(`response: ${JSON.stringify(response, null, 2)}`)
+      // console.log(`response: ${JSON.stringify(response, null, 2)}`)
 
       assert.property(response, 'success')
       assert.equal(response.success, true)
