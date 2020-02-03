@@ -14,6 +14,16 @@ module.exports.routes = [
     method: 'GET',
     route: '/utxos',
     handlers: [electronCash.getUtxos]
+  },
+  {
+    method: 'POST',
+    route: '/utxo',
+    handlers: [electronCash.sendUtxo]
+  },
+  {
+    method: 'POST',
+    route: '/broadcast',
+    handlers: [electronCash.broadcastTx]
   }
   /*
   {

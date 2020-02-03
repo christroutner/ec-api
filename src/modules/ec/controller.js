@@ -50,6 +50,58 @@ class ElectronCash {
       ctx.throw(500, err.message)
     }
   }
+
+  // Send a utxo to an address
+  async sendUtxo (ctx) {
+    try {
+      const toAddr = ctx.request.body.toAddr
+      if (!toAddr || toAddr === '') ctx.throw(422, 'toAddr can not be blank.')
+
+      const fromAddr = ctx.request.body.fromAddr
+      if (!fromAddr || fromAddr === '') ctx.throw(422, 'fromAddr can not be blank.')
+
+      let data = _this.shell.exec(`${config.ecPath} payto -w ${config.walletFile} -F ${fromAddr} ${toAddr} !`)
+      // console.log(`data: ${JSON.stringify(data, null, 2)}`)
+
+      data = JSON.parse(data)
+
+      ctx.body = {
+        success: true,
+        data
+      }
+    } catch (err) {
+      console.error(`Error in ec/controller.js/sendUtxo()`)
+      ctx.throw(500, err.message)
+    }
+  }
+
+  // Broadcast a hex string to the network.
+  async broadcastTx (ctx) {
+    try {
+      const hex = ctx.request.body.hex
+      if (!hex || hex === '') ctx.throw(422, 'hex can not be blank.')
+
+      let data = _this.shell.exec(`${config.ecPath} broadcast -w ${config.walletFile} ${hex}`)
+
+      data = JSON.parse(data)
+      // console.log(`data: ${JSON.stringify(data, null, 2)}`)
+
+      if (!data[0]) {
+        ctx.body = {
+          success: false,
+          txid: null
+        }
+      } else {
+        ctx.body = {
+          success: true,
+          txid: data[1]
+        }
+      }
+    } catch (err) {
+      console.error(`Error in ec/controller.js/broadcastTx()`)
+      throw err
+    }
+  }
 }
 
 module.exports = ElectronCash
