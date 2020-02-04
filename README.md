@@ -23,7 +23,7 @@ npm start
 ```
 
 ## Usage
-- Edit the [config/common.js](https://github.com/christroutner/ec-api/blob/master/config/env/common.js) file with the path to the local copy of Electron Cash application and the wallet file. The app needs to be running and the wallet needs to be open within the app in order for the REST API to work.
+- Edit the [config/env/common.js](https://github.com/christroutner/ec-api/blob/master/config/env/common.js) file with the path to the local copy of Electron Cash application and the wallet file. The app needs to be running and the wallet needs to be open within the app in order for the REST API to work.
 - It is assumed two copies of this app are being run. One on the machine with the CashFusion wallet, one on the machine with the CashShuffle wallet.
 - This API is intended to be run in conjunction with the [shuffle-manager](https://github.com/christroutner/shuffle-manager) app. That app runs on the machine with CashShuffle wallet and sends small UTXO coins to the CashFusion wallet.
 
